@@ -204,7 +204,7 @@ if st.button("Generate Digital Income Certificate & Analysis", type="primary", u
         pdf.cell(200, 10, txt="BBA Module 5 Academic Verification Project", ln=True, align='C')
         
         # Generate PDF as bytes
-        pdf_bytes = pdf.output(dest='S').encode('latin-1')
+        pdf_bytes = bytes(pdf.output())
         
         st.download_button(
             label="📥 Download Official Gramin Setu PDF Certificate",
