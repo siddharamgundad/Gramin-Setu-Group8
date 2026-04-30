@@ -11,8 +11,7 @@ st.markdown('''
     .stButton>button { background-color: #991B1B; color: white; border-radius: 8px; width: 100%; font-weight: bold;}
     h1, h2, h3 { color: #991B1B; }
     </style>
-    ''', unsafe_allow_now=True)
-
+    ''', unsafe_allow_html=True)
 # 2. Load the AI Brain
 model = joblib.load('gramin_setu_model.pkl')
 
