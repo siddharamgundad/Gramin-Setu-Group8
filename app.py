@@ -1,4 +1,3 @@
-%%writefile app.py
 import streamlit as st
 import pandas as pd
 import joblib
@@ -30,7 +29,6 @@ st.markdown("### Enter Farm Details")
 col1, col2 = st.columns(2)
 
 with col1:
-    # Comprehensive list of all Maharashtra Districts
     districts = [
         "AHMEDNAGAR", "AKOLA", "AMRAVATI", "AURANGABAD", "BEED", "BHANDARA", "BULDHANA", 
         "CHANDRAPUR", "DHULE", "GADCHIROLI", "GONDIA", "HINGOLI", "JALGAON", "JALNA", 
@@ -42,7 +40,6 @@ with col1:
     season = st.selectbox("Season", ["Kharif", "Rabi", "Summer", "Whole Year"])
 
 with col2:
-    # Comprehensive list of Maharashtra Crops
     maharashtra_crops = [
         "Arhar/Tur", "Bajra", "Castor seed", "Cotton(lint)", "Gram", "Groundnut", 
         "Jowar", "Linseed", "Maize", "Moong(Green Gram)", "Niger seed", "Other Kharif pulses", 
@@ -54,7 +51,6 @@ with col2:
 
 # 5. Core Business Logic & Prediction
 if st.button("Generate Income Certificate & Credit Score"):
-    # Internal conversion to UPPERCASE to ensure model compatibility
     d_input = district.upper()
     c_input = crop.upper()
     s_input = season.upper()
@@ -62,10 +58,9 @@ if st.button("Generate Income Certificate & Credit Score"):
     query_df = pd.DataFrame([[d_input, c_input, s_input]], columns=['District_Name', 'Crop', 'Season'])
     
     try:
-        # Get base prediction from the model
         prediction_per_acre = model.predict(query_df)[0]
         
-        # Scaling Fix: Prevents unrealistic numbers (like 38 Lakhs) by normalizing high values
+        # Scaling Fix: Prevents unrealistic numbers (like 38 Lakhs)
         if prediction_per_acre > 500000:
              prediction_per_acre = prediction_per_acre / 100 
              
@@ -74,16 +69,14 @@ if st.button("Generate Income Certificate & Credit Score"):
         st.markdown("---")
         st.success(f"## Predicted Seasonal Income: ₹{total_predicted_income:,.2f}")
         
-        # Financial Recommendation: 50% Risk Margin
         loan_limit = total_predicted_income * 0.50
         st.info(f"**Recommended Loan Approval Limit (50% Risk Margin):** ₹{loan_limit:,.2f}")
         
-        # Detailed audit trail for presentation
         st.write(f"*(Based on a regional benchmark of ₹{prediction_per_acre:,.2f} per acre for {crop} in {district})*")
         st.write("**Assessment Status:** Approved via Alternative Credit Scoring (Group 8)")
         
     except Exception as e:
-        st.error(f"Prediction Error: {e}. Ensure formatting matches historical data.")
+        st.error(f"Prediction Error: {e}")
 
 st.markdown("---")
 st.caption("Developed by Group 8 | BBA Module 5 | MIT Vishwaprayag University")
