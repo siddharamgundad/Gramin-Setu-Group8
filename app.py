@@ -34,7 +34,7 @@ with col2:
 
 # 5. Core Business Logic & Prediction
 if st.button("Generate Income Certificate & Credit Score"):
-    query_df = pd.DataFrame([[district, crop, season]], columns=['District_Name', 'Crop', 'Season'])
+    query_df = pd.DataFrame([[district, crop.upper(), season.upper()]], columns=['District_Name', 'Crop', 'Season'])
     try:
         prediction_per_acre = model.predict(query_df)[0]
         total_predicted_income = prediction_per_acre * area
