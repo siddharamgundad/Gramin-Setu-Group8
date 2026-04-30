@@ -7,12 +7,10 @@ st.set_page_config(page_title="Gramin Setu AI", page_icon="🌾")
 
 # 2. Load the AI Brain & Its Memory
 try:
-    # Load the new v2 model
     model = joblib.load('gramin_setu_model_v2.pkl')
-    # Load the categories it learned
     categories = joblib.load('model_categories.pkl')
 except Exception as e:
-    st.error("Error: Missing '.pkl' files. Please upload 'gramin_setu_model_v2.pkl' and 'model_categories.pkl' to GitHub.")
+    st.error(f"CRITICAL SYSTEM ERROR: {e}") 
     st.stop()
 
 # 3. Application Header
