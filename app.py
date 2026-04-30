@@ -34,7 +34,21 @@ with col2:
 
 # 5. Core Business Logic & Prediction
 if st.button("Generate Income Certificate & Credit Score"):
-    query_df = pd.DataFrame([[district, crop.upper(), season.upper()]], columns=['District_Name', 'Crop', 'Season'])
+    # Force inputs to match training data format (Uppercase is standard for most datasets)
+district_fixed = district.strip().upper()
+crop_fixed = crop.strip().upper()
+season_fixed = season.strip().upper()
+
+# Create the DataFrame with the exact column names used during training
+query_df = pd.DataFrame([[district_fixed, crop_fixed, season_fixed]], 
+                        columns=['District_Name', 'Crop', 'Season'])
+
+# Debugging: This will show you exactly what is being sent to the model 
+# (You can remove this line later)
+st.write(f"Predicting for: {district_fixed}, {crop_fixed}, {season_fixed}")
+
+# Make prediction
+prediction = model.predict(query_df)
     try:
         prediction_per_acre = model.predict(query_df)[0]
         total_predicted_income = prediction_per_acre * area
