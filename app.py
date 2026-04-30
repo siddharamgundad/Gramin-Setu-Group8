@@ -10,11 +10,17 @@ from fpdf import FPDF
 st.set_page_config(page_title="Gramin Setu Pro", page_icon="🌾", layout="wide")
 
 # ==========================================
-# 2. LOAD AI ENGINE
+# 2. LOAD AI ENGINE (OPTIMIZED FOR MOBILE SPEED)
 # ==========================================
+@st.cache_resource
+def load_ai_engine():
+    # This tells the server to load the heavy files ONCE and remember them.
+    m = joblib.load('gramin_setu_model_v2.pkl')
+    c = joblib.load('model_categories.pkl')
+    return m, c
+
 try:
-    model = joblib.load('gramin_setu_model_v2.pkl')
-    categories = joblib.load('model_categories.pkl')
+    model, categories = load_ai_engine()
 except Exception as e:
     st.error(f"CRITICAL SYSTEM ERROR: {e}")
     st.stop()
