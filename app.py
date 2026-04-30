@@ -34,7 +34,6 @@ with col2:
 
 # 5. Core Business Logic & Prediction
 if st.button("Generate Income Certificate & Credit Score"):
-    # Force inputs to match training data format (Uppercase is standard for most datasets)
 district_fixed = district.strip().upper()
 crop_fixed = crop.strip().upper()
 season_fixed = season.strip().upper()
